@@ -1,0 +1,23 @@
+@baseurl=https://httpbin.org
+@query_1=hello
+@query_2=world
+
+### Request 1
+< {%
+  -- lua
+  client.log("Request 1 PRE")
+%}
+
+GET {{baseurl}}/get?q={{query_1}}
+
+> {%
+  -- lua
+  assert(2 == 1, "This is a test")
+  client.log("Request 1 POST")
+%}
+
+ 
+### Request 2
+
+GET {{baseurl}}/html
+

@@ -1,0 +1,28 @@
+---
+name: main
+on:
+  pull_request: ~
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Run HTTP tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Kulala CI
+        uses: mistweaverco/kulala-github-action@v2
+
+      - name: Run Kulala CLI
+        run: |
+          kulala_cli.lua http/cli.http
+          kulala_cli.lua http/cli.http -v report
+        shell: bash
+        env:
+          COLUMNS: 120
